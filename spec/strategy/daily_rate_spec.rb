@@ -13,5 +13,5 @@ describe DailyRate do
 
   # TODO
   # Adicionar 25% para dias que sao feriados
-  # Adicionar 15% para dias que sao proximos de finais de semana ou feriados
+  # Adicionar 10% para dias que sao proximos de finais de semana ou feriados
 end
