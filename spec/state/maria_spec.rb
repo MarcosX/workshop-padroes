@@ -1,20 +1,27 @@
 describe Maria do
   it 'has the small state by default' do
-    expect(Maria.new.current_state).to eq(Maria::Small)
+    expect(Maria.new.current_state).to be_a_kind_of(StateSmall)
   end
 
   context 'current state is small Maria' do
     it 'picks a flower and change state to Maria::Flower' do
       maria = Maria.new
       maria.pick_flower()
-      expect(maria.current_state).to eq(Maria::Flower)
+      expect(maria.current_state).to be_a_kind_of(StateFlower)
     end
 
     it 'takes damage and chage state to Maria::Dead' do
       maria = Maria.new
       maria.take_damage()
-      expect(maria.current_state).to eq(Maria::Dead)
+      expect(maria.current_state).to be_a_kind_of(StateDead)
     end
+    
+    it 'picks a leaf and change state to StateLeaf' do
+      maria = Maria.new
+      maria.pick_leaf()
+      expect(maria.current_state).to be_a_kind_of(StateLeaf)
+    end
+    
   end
 
   context 'current state is Maria with Flower' do
@@ -22,14 +29,23 @@ describe Maria do
       maria = Maria.new
       maria.pick_flower()
       maria.pick_flower()
-      expect(maria.current_state).to eq(Maria::Flower)
+      expect(maria.current_state).to be_a_kind_of(StateFlower)
     end
 
     it 'takes damage and chage state to Maria::Small' do
       maria = Maria.new
+      maria.pick_flower()
       maria.take_damage()
-      expect(maria.current_state).to eq(Maria::Dead)
+      expect(maria.current_state).to be_a_kind_of(StateSmall)
     end
+    
+    it 'picks a leaf and change state to StateLeaf' do
+      maria = Maria.new
+      maria.pick_flower()
+      maria.pick_leaf()
+      expect(maria.current_state).to be_a_kind_of(StateLeaf)
+    end
+    
   end
 
   context 'current state is Maria with Star' do
@@ -37,17 +53,47 @@ describe Maria do
       maria = Maria.new
       maria.pick_star()
       maria.pick_flower()
-      expect(maria.current_state).to eq(Maria::Star)
+      expect(maria.current_state).to be_a_kind_of(StateStar)
     end
 
     it 'takes damage and stays in the same stage' do
       maria = Maria.new
       maria.pick_star()
       maria.take_damage()
-      expect(maria.current_state).to eq(Maria::Star)
+      expect(maria.current_state).to be_a_kind_of(StateStar)
+    end
+    
+    it 'picks a leaf and stays in the same stage' do
+      maria = Maria.new
+      maria.pick_star()
+      maria.pick_leaf()
+      expect(maria.current_state).to be_a_kind_of(StateStar)
     end
   end
 
+
+  context 'current state is Maria with Leaf' do
+    it 'picks a flower and change stage to StateFlower' do
+      maria = Maria.new
+      maria.pick_leaf()
+      maria.pick_flower()
+      expect(maria.current_state).to be_a_kind_of(StateFlower)
+    end
+
+    it 'takes damage and change state to StateSmall' do
+      maria = Maria.new
+      maria.pick_leaf()
+      maria.take_damage()
+      expect(maria.current_state).to be_a_kind_of(StateSmall)
+    end
+    
+    it 'picks a star and change state to StateStar' do
+      maria = Maria.new
+      maria.pick_leaf()
+      maria.pick_star()
+      expect(maria.current_state).to be_a_kind_of(StateStar)
+    end
+  end
   # todo Adicionar Leaf status
   # Transicoes de Leaf
   # Maria::Small -> Maria::Leaf

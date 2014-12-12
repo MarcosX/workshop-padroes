@@ -1,30 +1,23 @@
 class Maria
-  #states
-  Dead = :dead
-  Small = :small
-  Flower = :flower
-  Star = :star
 
   attr_reader :current_state
   def initialize
-    @current_state = Maria::Small
+    @current_state = StateSmall.new
   end
 
   def pick_flower
-    return if @current_state == Maria::Star
-    @current_state = Maria::Flower
+    @current_state = @current_state.pick_flower
   end
 
   def pick_star
-    @current_state = Maria::Star
+    @current_state = @current_state.pick_star
   end
-
+  
   def take_damage
-    return if @current_state == Maria::Star
-    if @current_state == Maria::Small
-      @current_state = Maria::Dead
-    else
-      @current_state = Maria::Small
-    end
-  end
+   @current_state = @current_state.take_damage
+ end
+ 
+ def pick_leaf
+   @current_state = @current_state.pick_leaf
+ end
 end
