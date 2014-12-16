@@ -96,10 +96,9 @@ describe Login do
                  data: {
                    username: 'jez',
                  }
-               }
-      login_params = Login.with(params)          
-      status = login_params[:status]
-      message = login_params(params)[:message]
+               } 
+      status = Login.with(params)[:status]
+      message = Login.with(params)[:message]
       expect(status).to be false
       expect(message).to eq 'not authorized'
     end
