@@ -1,3 +1,5 @@
+[![Build Status](https://snap-ci.com/MarcosX/workshop-padroes/branch/master/build_image)](https://snap-ci.com/MarcosX/workshop-padroes/branch/master)
+
 # Workshop de Padrões de Projeto
 
 Este repositório contém exemplos de códigos para serem refatorados utilizando um determinado padrão.
