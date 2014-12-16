@@ -10,7 +10,7 @@ describe Login do
                  data: {
                    username: 'claudia',
                  }
-               } 
+               }
       status = Login.with(params)[:status]
       expect(status).to be true
     end
@@ -64,10 +64,45 @@ describe Login do
       expect(status).to be false
     end
   end
+  
+  context 'when login via github' do
+    it 'logs successfuly for Claudia' do
+      params = {
+                 method: :github,
+                 data: {
+                   username: 'claudia',
+                 }
+               } 
+      status = Login.with(params)[:status]
+      expect(status).to be true
+    end
+    
+    it 'logs in unsuccessfuly for Derby' do
+      params = {
+                 method: :github,
+                 data: {
+                   username: 'derby',
+                 }
+               } 
+      status = Login.with(params)[:status]
+      message = Login.with(params)[:message]
+      expect(status).to be false
+      expect(message).to eq 'revoked authorization'
+    end
+    
+    it 'logs in unsuccessfuly for Jez' do
+      params = {
+                 method: :github,
+                 data: {
+                   username: 'jez',
+                 }
+               }
+      login_params = Login.with(params)          
+      status = login_params[:status]
+      message = login_params(params)[:message]
+      expect(status).to be false
+      expect(message).to eq 'not authorized'
+    end
+  end
 
-  # TODO
-  # Implementar login via github
-  # para claudia: sucesso com mensagem 'successful'
-  # para derby: falha com mensagem 'revoked authorization'
-  # para jez: falha com mensagem 'not authorized'
 end
