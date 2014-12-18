@@ -90,4 +90,47 @@ describe Search do
   # search_type é :promotion
   # category sempre é :on_sale
   # order_by sempre é :most_recent
+  context "when doing promotion search" do
+   it 'default search with search_type promotion,category on_sale, order_by most_recent' do
+     expected_search_params = {
+                        search_type: :promotion,
+                        product_name: 'product',
+                        order_by: :most_recent,
+                        results_per_page: 15,
+                        category: :on_sale
+                      }
+
+      expect(SearchService).to receive(:do_search).with(expected_search_params).and_return([])
+
+      Search.with({search_type: :promotion, product_name: 'product'})
+    end
+    
+    it 'default search with category on_sale' do
+     expected_search_params = {
+                        search_type: :promotion,
+                        product_name: 'product',
+                        order_by: :most_recent,
+                        results_per_page: 15,
+                        category: :on_sale
+                      }
+
+      expect(SearchService).to receive(:do_search).with(expected_search_params).and_return([])
+
+      Search.with({search_type: :promotion, product_name: 'product', category: :category})
+    end
+    
+    it 'default search with order_by most_recent' do
+     expected_search_params = {
+                        search_type: :promotion,
+                        product_name: 'product',
+                        order_by: :most_recent,
+                        results_per_page: 15,
+                        category: :on_sale
+                      }
+
+      expect(SearchService).to receive(:do_search).with(expected_search_params).and_return([])
+
+      Search.with({search_type: :promotion, product_name: 'product', order_by: :category})
+    end
+  end
 end
